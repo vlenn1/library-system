@@ -7,6 +7,52 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+# Library System
+## Description
+Simple library information system
+
+## Requirements
+- Php
+- Composer
+- Mysql
+- Laravel
+
+## Installation
+1. Clone the repository
+```
+git clone https://github.com/vlenn1/library-system.git
+cd nama-repo
+```
+2. Install Dependencies
+```
+composer install
+```
+
+3. copy environmet file
+```
+cp .env.example .env
+```
+
+4. Generate application key
+```
+php artisan key:generate
+```
+
+5. Configure database
+Edit .env file, according to your local database
+
+6. Migrate database
+```
+php artisan migrate
+```
+
+7. Run the development server
+```
+php artisan server
+```
+
+## Author
+Valenly Yabes P (2410631250077)
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
