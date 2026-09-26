@@ -4,10 +4,13 @@
 
     <h2>{{ $title }}</h2>
     <p>{{ $description }}</p>
-    <ul>
+    <ol>
         @foreach($books as $title => $book)
-        <li>{{$title}} - {{$book['penulis']}} - {{$book['tahun_terbit']}}</li>
+        <li><h3>{{ $book->title }}</h3></li>
+        <p>Penulis: {{$book->author}}</p>
+        <p>Tahun: {{$book->year}}</p>
+        <p>Stok buku: {{$book->stock}}</p>
         @endforeach
-    </ul>
+    </ol>
 
 @endsection
