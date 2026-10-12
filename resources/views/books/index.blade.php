@@ -1,16 +1,26 @@
 @extends('layouts.app')
 @section('title', $title)
+
+
 @section('content')
 
     <h2>{{ $title }}</h2>
-    <p>{{ $description }}</p>
+
+    <a href="{{ route('books.create') }}">Tambah Buku</a>
+    
     <ol>
         @foreach($books as $title => $book)
-        <li><h3>{{ $book->title }}</h3></li>
-        <p>Penulis: {{$book->author}}</p>
-        <p>Tahun: {{$book->year}}</p>
-        <p>Stok buku: {{$book->stock}}</p>
+            <li>
+                <h3>{{ $book->title }}</h3>
+                <a href="{{ route('books.show', $book->id) }}">Detail Buku</a>
+                <a href="{{ route('books.edit', $book, 'edit') }}">Edit Buku</a>
+                <form action="{{ route('books.destroy',$book) }}" method="POST">
+
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit">Hapus Data</button>
+                </form>
+            </li>
         @endforeach
     </ol>
-
 @endsection

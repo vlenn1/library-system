@@ -5,15 +5,82 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Book;
 
-class BookController extends Controller {
-    public function index(){
-        $title = 'Daftar Buku';
-        $description = 'Daftar buku yang tersedia di perpustakaan';
+class BookController extends Controller
+{
+
+    public function index()
+    {
+        $title = "Daftar Buku";
         $books = Book::all();
-        return view('books.index', compact('title', 'description','books'));
+        
+        return view('books.index', compact('title','books'));
     }
 
-    public function show($id){
-        return "Detail Buku <br>ID: " . $id;
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        $title = "Tambah Buku";
+        return view('books.create', compact('title'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        Book::create([
+            'title' => $request->title,
+            'author' => $request->author,
+            'year' => $request->year,
+            'stock' => $request->stock,
+        ]);
+
+        return redirect()->route('books.index');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(Book $book)
+    {
+        $title = "Detail Buku";
+
+        return view('books.show', compact('title', 'book'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Book $book)
+    {
+        $title = "Ubah Buku";
+        return view('books.edit', compact('title','book'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Book $book)
+    {
+        $book->update([
+            'title' => $request->title,
+            'author' => $request->author,
+            'year' => $request->year,
+            'stock' => $request->stock,
+        ]);
+
+        return redirect()->route('books.index'); 
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Book $book)
+    {
+        $book->delete();
+
+        return redirect()->route('books.index');
     }
 }

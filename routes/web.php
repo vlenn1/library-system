@@ -12,8 +12,9 @@ Route::get('/', function () {
 
 Route::get('/dashboard', [DashboardController::class,'index']);
 
-Route::get('/books', [BookController::class,'index']);
-Route::get('/books/{id}', [BookController::class,'show']);
+//Route::get('/books', [BookController::class,'index']);
+//Route::get('/books/{id}', [BookController::class,'show']);
+Route::resource('books', BookController::class);
 
 Route::get('/members', [MembersController::class,'index']);
 
