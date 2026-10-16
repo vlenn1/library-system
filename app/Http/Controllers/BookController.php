@@ -25,17 +25,16 @@ class BookController extends Controller
         return view('books.create', compact('title'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        Book::create([
-            'title' => $request->title,
-            'author' => $request->author,
-            'year' => $request->year,
-            'stock' => $request->stock,
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'author' => 'required|string|max:255',
+            'year' => 'required|integer|min:1900|digits:4|max:' . date('Y'),
+            'stock' => 'required|integer|min:0',
         ]);
+
+        Book::create($validated);
 
         return redirect()->route('books.index');
     }
@@ -64,14 +63,16 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book)
     {
-        $book->update([
-            'title' => $request->title,
-            'author' => $request->author,
-            'year' => $request->year,
-            'stock' => $request->stock,
+        $update_validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'author' => 'required|string|max:255',
+            'year' => 'required|integer|min:1900|digits:4|max:' . date('Y'),
+            'stock' => 'required|integer|min:0',
         ]);
 
-        return redirect()->route('books.index'); 
+        $book -> update($update_validated);
+
+        return redirect()->route('books.index');
     }
 
     /**
