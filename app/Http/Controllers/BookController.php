@@ -4,16 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Book;
+use App\Models\Category;
 
 class BookController extends Controller
 {
 
     public function index()
     {
-        $title = "Daftar Buku";
-        $books = Book::all();
+        $title = 'Daftar Buku';
+        $books = Book::with('category')->get();
         
-        return view('books.index', compact('title','books'));
+        return view('books.index', compact('books','title'));
     }
 
     /**
@@ -21,8 +22,10 @@ class BookController extends Controller
      */
     public function create()
     {
-        $title = "Tambah Buku";
-        return view('books.create', compact('title'));
+        $title = 'Menambahkan Buku';
+        $categories = Category::orderBy('name')->get();
+
+        return view('books.create', compact('categories','title'));
     }
 
     public function store(Request $request)
@@ -32,6 +35,7 @@ class BookController extends Controller
             'author' => 'required|string|max:255',
             'year' => 'required|integer|min:1900|digits:4|max:' . date('Y'),
             'stock' => 'required|integer|min:0',
+            'category_id' => 'required|exists:categories,id',
         ]);
 
         Book::create($validated);
@@ -45,7 +49,7 @@ class BookController extends Controller
     public function show(Book $book)
     {
         $title = "Detail Buku";
-
+        $books = Book::with('category')->get();
         return view('books.show', compact('title', 'book'));
     }
 
@@ -54,8 +58,10 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
-        $title = "Ubah Buku";
-        return view('books.edit', compact('title','book'));
+        $title = 'Edit Buku';
+        $categories = Category::orderBy('name')->get();
+
+        return view('books.edit', compact('book','categories','title'));
     }
 
     /**
@@ -68,6 +74,7 @@ class BookController extends Controller
             'author' => 'required|string|max:255',
             'year' => 'required|integer|min:1900|digits:4|max:' . date('Y'),
             'stock' => 'required|integer|min:0',
+            'category_id' => 'required|exists:categories,id',
         ]);
 
         $book -> update($update_validated);

@@ -10,6 +10,7 @@
         <p>Penulis: {{$book->author}}</p>
         <p>Tahun: {{$book->year}}</p>
         <p>Stok buku: {{$book->stock}}</p>
+        <p>Kategori: {{$book->category ?->name ?? 'Belum ada kategori'}}</p>
     </ol>
 
 @endsection

@@ -1,20 +1,19 @@
 @extends('layouts.app')
-@section('title', $title)
-
 
 @section('content')
     @if (session('success'))
         <p>{ {session('success')} }</p>
     @endif
 
-    <h2>{{ $title }}</h2>
-
+    <h2>{{$title}}</h2>
     <a href="{{ route('books.create') }}">Tambah Buku</a>
     
     <ol>
-        @foreach($books as $title => $book)
+        @foreach($books as $book)
             <li>
                 <h3>{{ $book->title }}</h3>
+                <p>Penulis: {{$book->author}}</p>
+                <p>Kategori: {{$book->category ?->name ?? 'Belum ada kategori'}}</p>
                 <a href="{{ route('books.show', $book->id) }}">Detail Buku</a>
                 <a href="{{ route('books.edit', $book, 'edit') }}">Edit Buku</a>
                 <form action="{{ route('books.destroy',$book) }}" method="POST">
