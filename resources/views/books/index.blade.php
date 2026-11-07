@@ -16,12 +16,14 @@
                 <p>Kategori: {{$book->category ?->name ?? 'Belum ada kategori'}}</p>
                 <a href="{{ route('books.show', $book->id) }}">Detail Buku</a>
                 <a href="{{ route('books.edit', $book, 'edit') }}">Edit Buku</a>
-                <form action="{{ route('books.destroy',$book) }}" method="POST">
+                @can('delete', $book)
+                    <form action="{{ route('books.destroy',$book) }}" method="POST" onsubmit= "return confirm('Yakin ingin menghapus buku ini?')">
+                        @csrf
+                        @method('DELETE')
 
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit">Hapus Data</button>
-                </form>
+                        <button type="submit">Delete</button>
+                    </form>
+                @endcan
             </li>
         @endforeach
     </ol>

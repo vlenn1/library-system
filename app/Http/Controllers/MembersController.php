@@ -8,7 +8,6 @@ class MembersController extends Controller
 {
     public function index(){
         $title = 'Daftar Anggota Perpustakaan';
-        $description = 'List Anggota Perpustakaan';
         $members = [
             'Hera',
             'Michele',
@@ -16,6 +15,6 @@ class MembersController extends Controller
             'chaewon',
             'Mina'
         ];
-        return view('members.index', compact('title','description','members'));
+        return view('members.index', compact('title','members'));
     }
 }

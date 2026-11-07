@@ -2,9 +2,7 @@
 @section('title')
 @section('content')
 
-    <h1>{{ $title_app }}</h1>
-    <p>{{ $description_app }}</p>
-
+    <h2>{{ $title_app }}</h2>
     <ul>
         <li>Jumlah Buku: {{$jumlah_buku}}</li>
         <li>Jumlah Kategori Buku: {{$jumlah_kategori}}</li>
